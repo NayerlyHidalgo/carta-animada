@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF--8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Halloween By AlexDev</title>
+    <link rel="stylesheet" href="style.css">
+ 
+    <style>
+        body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url('movil.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer; 
+    -webkit-tap-highlight-color: transparent;
+}
+
+* {
+  cursor: url('fantasma.png'), auto !important;
+}
+
+#contenedor-principal, #contenedor-carta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.texto-animado {
+    position: absolute;
+    width: 250px;
+    z-index: 2;
+    margin-top: 150px;
+    animation: flotar 3s ease-in-out infinite;
+    pointer-events: none; 
+}
+
+.sobre-animado {
+    width: 270px; 
+    z-index: 1;
+    margin-bottom: 200px;
+    animation: palpitar 2s ease-in-out infinite;
+}
+
+.murcielago-creado {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+    width: 160px; 
+    height: auto;
+    opacity: 0;
+    transition: opacity 0.5s ease-out; 
+}
+
+.murcielago-creado.visible {
+    opacity: 1;
+}
+
+.oculto {
+    display: none; 
+}
+
+.carta-animada {
+    width: 100%;
+    max-width: 900px;
+    animation: aparecer 2s ease-in-out;
+    margin-bottom: 210px;
+}
+
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes palpitar {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+    </style>
+</head>
+<body>
+    <div id="contenedor-principal">
+        <img src="texto.png" alt="Texto sobre" class="texto-animado">
+        <img src="sobre.png" alt="Sobre" id="sobre" class="sobre-animado">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const sobre = document.getElementById('sobre');
+
+    body.addEventListener('click', (event) => {
+
+    
+        const nuevoMurcielago = document.createElement('img');
+        nuevoMurcielago.src = 'murcielago.gif'; 
+        nuevoMurcielago.classList.add('murcielago-creado'); 
+        
+        document.body.appendChild(nuevoMurcielago);
+
+        nuevoMurcielago.style.left = `${event.clientX}px`;
+        nuevoMurcielago.style.top = `${event.clientY}px`;
+
+        setTimeout(() => {
+            nuevoMurcielago.classList.add('visible');
+        }, 10);
+
+        setTimeout(() => {
+            nuevoMurcielago.classList.remove('visible');
+        }, 2000); 
+
+        setTimeout(() => {
+            nuevoMurcielago.remove();
+        }, 3000); 
+
+        if (event.target === sobre) {
+            setTimeout(() => {
+                window.location.href = 'carta.html';
+            }, 800);
+        }
+    });
+});
+    </script>
+</body>
+
+</html>
